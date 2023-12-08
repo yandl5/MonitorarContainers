@@ -14,7 +14,7 @@ services:
       - /etc/prometheus:/etc/prometheus 
       - prometheus-data:/prometheus 
     command: 
-      - "--config.file=/etc/prometheus/prometheus.yml" 
+      - "--config.file=/var/www/grafana/MonitorarContainers/prometheus.yml" 
     ports: 
       - '9089:9090'
   loki:
@@ -23,14 +23,14 @@ services:
       - "3100:3100"
     volumes:
       - /home/promtailloki/loki:/etc/loki
-    command: -config.file=/etc/loki/loki-config.yaml
+    command: -config.file=/var/www/grafana/MonitorarContainers/loki/loki-config.yaml
   promtail:
     image: grafana/promtail:2.2.1
     volumes:
       - /var/log:/var/log
       - /var/lib/docker/containers:/var/lib/docker/containers
       - /home/promtailloki/promtail:/etc/promtail
-    command: -config.file=/etc/promtail/promtail-config.yaml
+    command: -config.file=/var/www/grafana/MonitorarContainers/promtail/promtail-config.yaml
     deploy:
       resources:
         limits:
